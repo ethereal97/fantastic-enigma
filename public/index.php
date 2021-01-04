@@ -17,10 +17,10 @@ $path = parse_url($uri, PHP_URL_PATH);
 
 $headers = [];
 
-array_map(function ($name) use(&$headers) {
-  if (!preg_match(HTTP_HEADER_FORMAT, $name, $matched)) return;
+array_map(function ($key) use(&$headers) {
+  if (!preg_match(HTTP_HEADER_FORMAT, $key, $matched)) return;
   $name = str_replace('_', '-', strtolower($matched[1]));
-  $headers[$name] = $_SERVER[$name];
+  $headers[$name] = $_SERVER[$key];
 }, array_keys($_SERVER));
 
 $res = compact('method', 'headers', 'uri', 'path', 'query', 'data', 'cookie', 'files');
